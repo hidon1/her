@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>יומן הריון משפחתי | שבועות 1–40</title>
+  <style>
+    :root {
+      --bg1: #fff7fb;
+      --bg2: #f4f7ff;
+      --primary: #9d5cff;
+      --primary2: #ff7ab6;
+      --accent: #ffd166;
+      --text: #272235;
+      --muted: #766d84;
+      --card: rgba(255,255,255,.78);
+      --border: rgba(127, 87, 255, .16);
+      --shadow: 0 18px 55px rgba(87, 60, 130, .16);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255,122,182,.28), transparent 26%),
+        radial-gradient(circle at 82% 12%, rgba(157,92,255,.24), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(255,209,102,.28), transparent 30%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow-x: hidden;
+    }
+
+    .float-shapes span {
+      position: fixed;
+      z-index: 0;
+      opacity: .35;
+      filter: blur(.1px);
+      animation: floaty 9s ease-in-out infinite;
+      user-select: none;
+      pointer-events: none;
+      font-size: 24px;
+    }
+    .float-shapes span:nth-child(1){ top: 10%; right: 6%; animation-delay: 0s; }
+    .float-shapes span:nth-child(2){ top: 26%; left: 8%; animation-delay: 1s; }
+    .float-shapes span:nth-child(3){ bottom: 12%; right: 12%; animation-delay: 2s; }
+    .float-shapes span:nth-child(4){ bottom: 24%; left: 16%; animation-delay: 3s; }
+    .float-shapes span:nth-child(5){ top: 54%; right: 4%; animation-delay: 4s; }
+    @keyframes floaty { 0%,100%{ transform: translateY(0) rotate(0deg);} 50%{ transform: translateY(-22px) rotate(8deg);} }
+
+    .app {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 26px 0 60px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(255,255,255,.88), rgba(255,255,255,.55));
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 36px;
+      box-shadow: var(--shadow);
+      padding: clamp(22px, 5vw, 50px);
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 28px;
+      align-items: center;
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero:before {
+      content: "";
+      position: absolute;
+      inset: auto auto -90px -80px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255,122,182,.25), rgba(157,92,255,.2));
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(157,92,255,.11);
+      color: #6f39c7;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 6vw, 64px);
+      line-height: 1.02;
+      margin: 0 0 14px;
+      letter-spacing: -1.4px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: clamp(16px, 2.2vw, 20px);
+      line-height: 1.75;
+      margin: 0;
+      max-width: 780px;
+    }
+
+    .hero-card {
+      background: linear-gradient(160deg, #fff, #fff7fb);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 22px;
+      box-shadow: 0 15px 40px rgba(157,92,255,.16);
+    }
+
+    .stat {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.72);
+      margin-bottom: 12px;
+    }
+    .stat-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(157,92,255,.18), rgba(255,122,182,.18));
+      font-size: 28px;
+    }
+    .stat b { display:block; font-size: 18px; }
+    .stat small { color: var(--muted); line-height: 1.5; }
+
+    .toolbar {
+      margin: 22px 0;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 12px;
+      align-items: center;
+      background: rgba(255,255,255,.66);
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 26px;
+      padding: 12px;
+      box-shadow: 0 12px 34px rgba(87,60,130,.10);
+      backdrop-filter: blur(12px);
+    }
+
+    input, select, textarea, button {
+      font-family: inherit;
+    }
+
+    .search, .select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: white;
+      padding: 14px 16px;
+      outline: none;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 18px;
+      padding: 14px 18px;
+      font-weight: 900;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      color: white;
+      box-shadow: 0 12px 26px rgba(157,92,255,.24);
+      transition: transform .18s ease, box-shadow .18s ease;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 32px rgba(157,92,255,.3); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .weeks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+      gap: 14px;
+    }
+
+    .week-card {
+      min-height: 132px;
+      border: 1px solid rgba(255,255,255,.86);
+      background: var(--card);
+      border-radius: 26px;
+      padding: 16px;
+      box-shadow: 0 14px 36px rgba(87,60,130,.10);
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .week-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      border-color: rgba(157,92,255,.34);
+      background: rgba(255,255,255,.92);
+    }
+    .week-card:after {
+      content: "";
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      left: -24px;
+      bottom: -24px;
+      background: linear-gradient(135deg, rgba(255,122,182,.2), rgba(255,209,102,.2));
+    }
+    .week-number {
+      font-size: 28px;
+      font-weight: 950;
+      letter-spacing: -.5px;
+    }
+    .week-title {
+      color: var(--muted);
+      font-weight: 800;
+      margin-top: 6px;
+      line-height: 1.35;
+    }
+    .week-emoji {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      font-size: 28px;
+    }
+    .week-chip {
+      display:inline-flex;
+      margin-top: 14px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(157,92,255,.10);
+      color: #6937ba;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .side-panel {
+      position: sticky;
+      top: 14px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel {
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 28px;
+      padding: 18px;
+      box-shadow: 0 14px 34px rgba(87,60,130,.11);
+      backdrop-filter: blur(14px);
+    }
+    .panel h2 {
+      font-size: 20px;
+      margin: 0 0 12px;
+    }
+    .panel p, .panel li {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .panel ul { margin: 0; padding-right: 20px; }
+
+    .note-box textarea {
+      width: 100%;
+      min-height: 130px;
+      resize: vertical;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      outline: none;
+      background: rgba(255,255,255,.9);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      place-items: center;
+      padding: 18px;
+      background: rgba(37,30,49,.46);
+      backdrop-filter: blur(10px);
+    }
+    .modal.open { display: grid; }
+    .modal-card {
+      width: min(920px, 100%);
+      max-height: min(88vh, 820px);
+      overflow: auto;
+      background: linear-gradient(145deg, rgba(255,255,255,.97), rgba(255,248,252,.96));
+      border: 1px solid rgba(255,255,255,.92);
+      border-radius: 34px;
+      box-shadow: 0 30px 80px rgba(20, 15, 33, .28);
+      padding: clamp(18px, 4vw, 34px);
+      animation: pop .2s ease-out;
+    }
+    @keyframes pop { from { transform: scale(.96); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .modal-head {
+      display:flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .modal-title h2 {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 42px);
+    }
+    .modal-title p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .close {
+      border: none;
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      cursor: pointer;
+      background: rgba(157,92,255,.11);
+      color: #6f39c7;
+      font-size: 24px;
+      font-weight: 950;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .info-box {
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.82);
+      border: 1px solid var(--border);
+    }
+    .info-box b { display:block; margin-bottom: 7px; }
+    .info-box span { color: var(--muted); line-height: 1.55; }
+
+    .section-title {
+      margin: 24px 0 10px;
+      font-size: 20px;
+    }
+    .task-list {
+      display: grid;
+      gap: 10px;
+    }
+    .task {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: rgba(255,255,255,.78);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .task input { margin-top: 5px; accent-color: #9d5cff; }
+
+    .week-notes {
+      width: 100%;
+      min-height: 100px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 14px;
+      line-height: 1.65;
+      outline: none;
+      background: white;
+    }
+
+    .footer {
+      margin-top: 26px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    @media (max-width: 920px) {
+      .hero, .layout { grid-template-columns: 1fr; }
+      .toolbar { grid-template-columns: 1fr; }
+      .side-panel { position: static; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="float-shapes" aria-hidden="true">
+    <span>✨</span><span>🧸</span><span>🌙</span><span>💛</span><span>🌸</span>
+  </div>
+
+  <main class="app">
+    <section class="hero">
+      <div>
+        <div class="badge">👶 יומן משפחתי שבועי</div>
+        <h1>מסע ההריון שלנו<br>שבוע אחרי שבוע</h1>
+        <p>
+          אתר אישי, יפה ונעים למעקב משפחתי: 40 שבועות, כרטיס לכל שבוע, משימות, הערות, קניות, שאלות לרופא ותיעוד רגעים קטנים בדרך.
+        </p>
+      </div>
+      <aside class="hero-card">
+        <div class="stat"><div class="stat-icon">📅</div><div><b>40 שבועות</b><small>לחיצה על כל כרטיס פותחת דף שבועי מעוצב.</small></div></div>
+        <div class="stat"><div class="stat-icon">📝</div><div><b>הערות אישיות</b><small>כל שבוע שומר הערות בדפדפן באמצעות localStorage.</small></div></div>
+        <div class="stat"><div class="stat-icon">✅</div><div><b>משימות</b><small>רשימות כלליות למשפחה, קניות, ארגון ושאלות לבדיקה.</small></div></div>
+      </aside>
+    </section>
+
+    <section class="toolbar">
+      <input class="search" id="searchInput" placeholder="חיפוש שבוע, לדוגמה: שבוע 12 / קניות / הכנה" />
+      <select class="select" id="phaseFilter">
+        <option value="all">כל התקופות</option>
+        <option value="early">שבועות 1–13</option>
+        <option value="middle">שבועות 14–27</option>
+        <option value="late">שבועות 28–40</option>
+      </select>
+      <button class="btn" id="clearNotes">איפוס הערות</button>
+    </section>
+
+    <section class="layout">
+      <div class="weeks-grid" id="weeksGrid"></div>
+
+      <aside class="side-panel">
+        <div class="panel">
+          <h2>⭐ מה אפשר לעשות כאן?</h2>
+          <ul>
+            <li>לפתוח כל שבוע ולכתוב סיכום אישי.</li>
+            <li>לסמן משימות כלליות שבוצעו.</li>
+            <li>להכין שאלות מסודרות לרופא או לאחות.</li>
+            <li>לשמור רעיונות לשמות, קניות וסידורים.</li>
+          </ul>
+        </div>
+
+        <div class="panel note-box">
+          <h2>💌 פתק משפחתי כללי</h2>
+          <textarea id="globalNote" placeholder="כתבו כאן מחשבות, תאריכים חשובים, דברים לזכור..."></textarea>
+        </div>
+
+        <div class="panel">
+          <h2>⚠️ הבהרה</h2>
+          <p>האתר הוא יומן משפחתי כללי ואינו מחליף ייעוץ, מעקב או הנחיה רפואית. לכל שאלה מעשית יש לפנות לגורם רפואי מוסמך.</p>
+        </div>
+      </aside>
+    </section>
+
+    <div class="footer">נבנה כקובץ HTML יחיד — אפשר לשמור, לפתוח בדפדפן, ולערוך את הטקסטים בקוד לפי הצורך.</div>
+  </main>
+
+  <div class="modal" id="weekModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="modal-title">
+          <h2 id="modalTitle"></h2>
+          <p id="modalSubtitle"></p>
+        </div>
+        <button class="close" id="closeModal" aria-label="סגירה">×</button>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-box"><b>🎯 מיקוד שבועי</b><span id="focusText"></span></div>
+        <div class="info-box"><b>🏠 ארגון בבית</b><span id="homeText"></span></div>
+        <div class="info-box"><b>💬 שיחה טובה</b><span id="talkText"></span></div>
+      </div>
+
+      <h3 class="section-title">✅ משימות כלליות לשבוע</h3>
+      <div class="task-list" id="taskList"></div>
+
+      <h3 class="section-title">📝 הערות אישיות לשבוע הזה</h3>
+      <textarea class="week-notes" id="weekNotes" placeholder="מה היה השבוע? מה חשוב לזכור? מה לשאול בבדיקה הבאה?"></textarea>
+    </div>
+  </div>
+
+  <script>
+    const emojis = ["🌱","✨","🌙","🧸","💛","🌸","🎀","⭐","🍼","🍯"];
+
+    const phases = {
+      early: {
+        title: "התחלה שקטה ומרגשת",
+        focus: "לסמן תאריכים, להתחיל יומן אישי, ולרכז מסמכים ותזכורות במקום אחד.",
+        home: "להכין תיקייה דיגיטלית או פיזית למסמכים, תוצאות, תורים ורשימות.",
+        talk: "לשבת כמה דקות יחד ולכתוב מה חשוב לכם בתקופה הקרובה."
+      },
+      middle: {
+        title: "שלב התארגנות ותכנון",
+        focus: "להתחיל לחשוב על ציוד, סדרי בית, תקציב, שמות ורעיונות למשפחה.",
+        home: "לבדוק מה כבר יש, מה צריך לקנות, ומה אפשר לקבל או להשאיל.",
+        talk: "לדבר על חלוקת תפקידים, עזרה מהמשפחה וסדר יום אחרי הלידה."
+      },
+      late: {
+        title: "הכנות אחרונות ורוגע",
+        focus: "לסגור רשימות, להכין תיק, לסדר מסמכים חשובים ולהשאיר מקום למנוחה.",
+        home: "לארגן פינה נעימה, כביסות בסיסיות, ציוד ראשוני ותיק מסודר.",
+        talk: "לכתוב מי אנשי הקשר החשובים ומה עושים בכל תרחיש לוגיסטי."
+      }
+    };
+
+    function getPhase(week) {
+      if (week <= 13) return "early";
+      if (week <= 27) return "middle";
+      return "late";
+    }
+
+    function weekTitle(week) {
+      if (week <= 4) return "פתיחת הדרך";
+      if (week <= 8) return "התרגשות ותיאום";
+      if (week <= 13) return "בניית שגרה";
+      if (week <= 18) return "תכנון רגוע";
+      if (week <= 23) return "בית, ציוד ורעיונות";
+      if (week <= 27) return "סידור עדיפויות";
+      if (week <= 32) return "הכנות מתקדמות";
+      if (week <= 36) return "ארגון אחרון";
+      return "לקראת המפגש";
+    }
+
+    function weeklyTasks(week) {
+      const base = [
+        "לכתוב סיכום קצר של השבוע ביומן.",
+        "לרשום שאלות לבדיקה או לשיחה עם גורם מקצועי.",
+        "לבדוק ביומן אם יש תור, מסמך או משימה פתוחה."
+      ];
+      if (week <= 13) return [...base, "לפתוח תיקייה למסמכים חשובים.", "לחשוב איך רוצים לבשר למשפחה הקרובה, אם רלוונטי."];
+      if (week <= 27) return [...base, "להתחיל רשימת ציוד בסיסית.", "לבדוק תקציב וקניות מתוכננות.", "לרשום רעיונות לשמות שאוהבים."];
+      return [...base, "להכין רשימת אנשי קשר חשובים.", "לארגן תיק ודברים זמינים לבית.", "לסדר פינה רגועה ונקייה לקראת ההמשך."];
+    }
+
+    const weeks = Array.from({ length: 40 }, (_, i) => {
+      const week = i + 1;
+      const phase = getPhase(week);
+      return {
+        week,
+        phase,
+        title: weekTitle(week),
+        emoji: emojis[i % emojis.length],
+        subtitle: `${phases[phase].title} — שבוע ${week}`,
+        focus: phases[phase].focus,
+        home: phases[phase].home,
+        talk: phases[phase].talk,
+        tasks: weeklyTasks(week)
+      };
+    });
+
+    const grid = document.getElementById("weeksGrid");
+    const searchInput = document.getElementById("searchInput");
+    const phaseFilter = document.getElementById("phaseFilter");
+    const modal = document.getElementById("weekModal");
+    const closeModal = document.getElementById("closeModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalSubtitle = document.getElementById("modalSubtitle");
+    const focusText = document.getElementById("focusText");
+    const homeText = document.getElementById("homeText");
+    const talkText = document.getElementById("talkText");
+    const taskList = document.getElementById("taskList");
+    const weekNotes = document.getElementById("weekNotes");
+    const globalNote = document.getElementById("globalNote");
+
+    let currentWeek = null;
+
+    function renderWeeks() {
+      const q = searchInput.value.trim().toLowerCase();
+      const selected = phaseFilter.value;
+      grid.innerHTML = "";
+
+      weeks
+        .filter(item => selected === "all" || item.phase === selected)
+        .filter(item => {
+          const haystack = `שבוע ${item.week} ${item.title} ${item.subtitle} ${item.focus} ${item.home} ${item.talk}`.toLowerCase();
+          return !q || haystack.includes(q);
+        })
+        .forEach(item => {
+          const card = document.createElement("article");
+          card.className = "week-card";
+          card.innerHTML = `
+            <div class="week-emoji">${item.emoji}</div>
+            <div class="week-number">שבוע ${item.week}</div>
+            <div class="week-title">${item.title}</div>
+            <span class="week-chip">פתח דף שבועי</span>
+          `;
+          card.addEventListener("click", () => openWeek(item.week));
+          grid.appendChild(card);
+        });
+    }
+
+    function openWeek(week) {
+      const item = weeks.find(w => w.week === week);
+      currentWeek = week;
+      modalTitle.textContent = `שבוע ${item.week} ${item.emoji}`;
+      modalSubtitle.textContent = item.subtitle;
+      focusText.textContent = item.focus;
+      homeText.textContent = item.home;
+      talkText.textContent = item.talk;
+      taskList.innerHTML = "";
+
+      item.tasks.forEach((task, idx) => {
+        const id = `task_${week}_${idx}`;
+        const row = document.createElement("label");
+        row.className = "task";
+        row.innerHTML = `<input type="checkbox" id="${id}"> <span>${task}</span>`;
+        const checkbox = row.querySelector("input");
+        checkbox.checked = localStorage.getItem(id) === "1";
+        checkbox.addEventListener("change", () => localStorage.setItem(id, checkbox.checked ? "1" : "0"));
+        taskList.appendChild(row);
+      });
+
+      weekNotes.value = localStorage.getItem(`week_note_${week}`) || "";
+      modal.classList.add("open");
+    }
+
+    function saveCurrentWeekNote() {
+      if (currentWeek) localStorage.setItem(`week_note_${currentWeek}`, weekNotes.value);
+    }
+
+    closeModal.addEventListener("click", () => {
+      saveCurrentWeekNote();
+      modal.classList.remove("open");
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        saveCurrentWeekNote();
+        modal.classList.remove("open");
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) {
+        saveCurrentWeekNote();
+        modal.classList.remove("open");
+      }
+    });
+
+    weekNotes.addEventListener("input", saveCurrentWeekNote);
+
+    globalNote.value = localStorage.getItem("global_pregnancy_family_note") || "";
+    globalNote.addEventListener("input", () => localStorage.setItem("global_pregnancy_family_note", globalNote.value));
+
+    document.getElementById("clearNotes").addEventListener("click", () => {
+      const ok = confirm("לאפס את כל ההערות והסימונים שנשמרו בדפדפן?");
+      if (!ok) return;
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith("week_note_") || key.startsWith("task_") || key === "global_pregnancy_family_note") {
+          localStorage.removeItem(key);
+        }
+      });
+      globalNote.value = "";
+      if (currentWeek) openWeek(currentWeek);
+    });
+
+    searchInput.addEventListener("input", renderWeeks);
+    phaseFilter.addEventListener("change", renderWeeks);
+
+    renderWeeks();
+  </script>
+</body>
+</html>
